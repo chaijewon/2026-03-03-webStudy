@@ -21,6 +21,26 @@ table {
   margin: 0px auto;
 }
 </style>
+<script type="text/javascript" 
+     src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){ // main
+	/*
+	  일반 JavaScript : window.onload=function(){} => 바닐라JS
+	      Vue : mounted() 
+	      React : componentDidMount()
+	      Jquery : $(function(){})
+	      => NodeJS / TypeScript / NextJS
+	      순서는 동일 = 라이브러리 함수만 다르다 
+	*/
+	$('#keyboard').keyup(function(){
+		let k=$('#keyboard').val() // 입력값 가지고 와라 
+		$('.tlb tbody tr').hide()
+		let temp=$('.tlb tbody tr td:nth-child(5n+2):contains("'+k+'")')
+		$(temp).parent().show()
+	})
+})
+</script>
 </head>
 <body>
   <h3>사원 목록</h3>
@@ -33,7 +53,7 @@ table {
      </tr>
    </tbody>
   </table>
-  <table id="table_content" width=700>
+  <table id="table_content" width=700 class="tlb">
    <thead>
      <tr>
       <th>사번</th>
