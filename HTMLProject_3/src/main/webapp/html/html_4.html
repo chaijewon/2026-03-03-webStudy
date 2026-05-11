@@ -43,7 +43,7 @@ $(function(){ // main
 	$('#keyboard').keyup(function(){
 		let k=$('#keyboard').val() // 입력값 가지고 와라 
 		$('.tlb tbody tr').hide()
-		let temp=$('.tlb tbody tr td:nth-child(5n+2):contains("'+k+'")')
+		let temp=$('.tlb tbody tr td:nth-child(5n+3):contains("'+k+'")')
 		$(temp).parent().show()
 	})
 })
