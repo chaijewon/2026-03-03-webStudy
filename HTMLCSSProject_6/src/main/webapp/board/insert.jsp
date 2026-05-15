@@ -37,6 +37,7 @@ h3 {
      <div class="board-wrap">
        <h3>글쓰기</h3>
        <div class="row">
+        <form method=post action="insert_ok.jsp">
          <table class="table">
           <tbody>
             <tr>
@@ -58,7 +59,7 @@ h3 {
             <tr>
              <th width="15%" class="text-center">내용</th>
              <td width="85%">
-              <textarea rows="10" cols="52" required></textarea>
+              <textarea rows="10" cols="52" required name=content></textarea>
              </td>
             </tr>
             <tr>
@@ -79,6 +80,7 @@ h3 {
             </tr>
           </tbody>
          </table>
+         </form>
        </div>
      </div>
    </div>

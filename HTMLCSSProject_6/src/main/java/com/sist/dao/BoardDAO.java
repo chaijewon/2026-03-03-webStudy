@@ -195,7 +195,31 @@ public class BoardDAO {
 	   return count;
    }
    // 상세보기 => WHERE 
-   // 추가 => INSERT 
+   // 추가 => INSERT ==> 자바는 AutoCommit
+   public void boardInsert(BoardVO vo)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="INSERT INTO jspBoard(name,subject,content,pwd) "
+				     +"VALUES(?,?,?,?)";
+		   ps=conn.prepareStatement(sql);
+		   // ?에 값을 채운다 
+		   ps.setString(1, vo.getName());
+		   ps.setString(2, vo.getSubject());
+		   ps.setString(3, vo.getContent());
+		   ps.setString(4, vo.getPwd());
+		   // 실행후에 Commit 수행
+		   ps.executeUpdate();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
    // 수정 => UPDATE
    // 삭제 => DELETE
    // JOIN / SUBQUERY / VIEW / INDEX / PROCEDURE / TRIGGER 
