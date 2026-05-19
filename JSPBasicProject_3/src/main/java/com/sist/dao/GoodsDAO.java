@@ -115,4 +115,55 @@ public class GoodsDAO {
 	   }
 	   return total;
    }
+   /*
+    *   NO                                        NOT NULL NUMBER
+ GOODS_NAME                                NOT NULL VARCHAR2(1000)
+ GOODS_SUB                                          VARCHAR2(1000)
+ GOODS_PRICE                               NOT NULL VARCHAR2(50)
+ GOODS_DISCOUNT                                     NUMBER
+ GOODS_FIRST_PRICE                                  VARCHAR2(20)
+ GOODS_DELIVERY                            NOT NULL VARCHAR2(20)
+ GOODS_POSTER                                       VARCHAR2(260)
+ HIT                                                NUMBER
+    */
+   public GoodsVO goodsDetailData(int no)
+   {
+	   GoodsVO vo=new GoodsVO();
+	   try
+	   {
+		   getConnection();
+		   String sql="UPDATE goods_all SET "
+				     +"hit=hit+1 "
+				     +"WHERE no="+no;
+		   ps=conn.prepareStatement(sql);
+		   ps.executeUpdate();
+		   
+		   sql="SELECT no,goods_name,goods_poster,goods_price,"
+			  +"goods_sub,goods_discount,goods_delivery,"
+			  +"goods_first_price "
+			  +"FROM goods_all "
+			  +"WHERE no="+no;
+		   ps=conn.prepareStatement(sql);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   vo.setNo(rs.getInt(1));
+		   vo.setGoods_name(rs.getString(2));
+		   vo.setGoods_poster(rs.getString(3));
+		   vo.setGoods_price(rs.getString(4));
+		   vo.setGoods_sub(rs.getString(5));
+		   vo.setGoods_discount(rs.getInt(6));
+		   vo.setGoods_delivery(rs.getString(7));
+		   vo.setGoods_first_price(rs.getString(8));
+		   
+		   rs.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return vo;
+   }
 }

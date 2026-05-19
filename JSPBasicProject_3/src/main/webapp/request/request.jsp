@@ -43,6 +43,9 @@
     
     if(endPage>totalpage)
     	endPage=totalpage;
+    
+    // a href="detail.jsp?no=1 
+    //         ----------
 %>
 <!DOCTYPE html>
 <html>
@@ -124,6 +127,14 @@ body {
 .page-card{
   width: 100%;
 }
+.detail {
+  text-decoration: none;
+  color:black;
+}
+.detail:hover{
+  text-decoration: underline;
+  color:green;
+}
 </style>
 </head>
 <body>
@@ -132,13 +143,19 @@ body {
       for(GoodsVO vo:list)
       {
    %>
+      
 	    <div class="card">
 	      <img src="<%=vo.getGoods_poster() %>">
 	      <div class="card-body">
-	        <div class="card-title"><%=vo.getGoods_name() %></div>
+	        <div class="card-title">
+	        <a href="detail.jsp?no=<%=vo.getNo()%>" class="detail">
+	         <%=vo.getGoods_name() %>
+	        </a>
+	        </div>
 	        <div class="card-text"><%=vo.getGoods_price() %></div>
 	      </div>
 	    </div>
+	  </a>
    <%
       }
    %>
