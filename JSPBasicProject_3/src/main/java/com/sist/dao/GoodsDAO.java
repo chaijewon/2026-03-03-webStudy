@@ -14,7 +14,82 @@ public class GoodsDAO {
    private static GoodsDAO dao;
    
    // 드라이버 등록 
+   public GoodsDAO()
+   {
+	   try
+	   {
+		   Class.forName("oracle.jdbc.driver.OracleDriver");
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+   }
    // 연결 
+   public void getConnection()
+   {
+	   try
+	   {
+		   conn=DriverManager.getConnection(URL,"hr","happy");
+	   }catch(Exception ex) {}
+   }
    // 닫기 
+   public void disConnection()
+   {
+	   try
+	   {
+		   if(ps!=null) ps.close();
+		   if(conn!=null) conn.close();
+	   }catch(Exception ex) {}
+   }
    // 싱글턴 생성 => new를 사용하지 않고 재사용이 가능 => 메모리 절약 
+   public static GoodsDAO newInstance()
+   {
+	   if(dao==null)
+		   dao=new GoodsDAO();
+	   return dao;
+   }
+   // 기능 : javascript => jquery = ajax = vuejs = vuex = pinia 
+   // reactjs = redux = tanstack-query (typescript) = nodejs 
+   // ====> nextjs 
+   // 1. 직접 구현 
+   public List<GoodsVO> goodsListData(int page)
+   {
+	   List<GoodsVO> list=new ArrayList<GoodsVO>();
+	   try
+	   {
+		   // 연결 
+		   getConnection();
+		   // SQL 
+		   String sql="SELECT no,goods_name,goods_poster,goods_price "
+				     +"FROM goods_all "
+				     +"ORDER BY no ASC "
+				     +"OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY";
+		   // 오라클 전송 
+		   ps=conn.prepareStatement(sql);
+		   // ? 에 값을 채운다 
+		   ps.setInt(1, (page*12)-12);
+		   // 결과값 받기 
+		   ResultSet rs=ps.executeQuery();
+		   // List에 담기 
+		   while(rs.next())
+		   {
+			   GoodsVO vo=new GoodsVO();
+			   vo.setNo(rs.getInt(1));
+			   vo.setGoods_name(rs.getString(2));
+			   vo.setGoods_poster(rs.getString(3));
+			   vo.setGoods_price(rs.getString(4));
+			   
+			   list.add(vo);
+		   }
+		   rs.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return list;
+   }
 }
