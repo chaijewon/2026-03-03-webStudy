@@ -58,9 +58,16 @@
            <li>getRequestURL(): URL</li>
            <li>***getRequestURI(): URI</li>
            <li>getContextPath(): 루트 폴더</li>
+           <li>getSession():세션 읽기</li>
+           <li>getCookies(): 쿠키 읽기</li>
          </ul>
        </td>
-       <td></td>
+       <td>사용자 요청 정보 / 쿠키 , 세션 읽기(13장)
+        <br>
+        Cookie[] cookies=request.getCookies()
+        <br>
+        HttpSession session=request.getSession()
+       </td>
      </tr>
     </table>
    </div>
