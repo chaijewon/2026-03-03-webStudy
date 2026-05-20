@@ -69,6 +69,81 @@
         HttpSession session=request.getSession()
        </td>
      </tr>
+     <tr>
+       <td>response</td>
+       <td>HttpServletResponse</td>
+       <td>서버에서 클라이언트로 응답시 사용
+           <br> HTML전송 / Cookie전송중 한개 선택(두개를 동시에 보낼 수 없다)
+           <br> HTML => setContentType("text/html;charset=UTF-8") => page지시자안에 포함
+           <br> response.addCookie(cookie)
+       </td>
+       <td>
+          <ul>
+            <li>***sendRedirect() : GET => 다른 파일로 이동</li>
+            <li>addCookie() : cookie전송</li>
+            <li>setHeader() : 데이터 전송전에 송신:다운로드</li>
+          </ul>
+          
+       </td>
+       <td>
+         쿠키 전송 / 다운로드 / 채팅
+       </td>
+     </tr>
+     <tr>
+       <td>application</td>
+       <td>ServletContext : Spring =>  request/response읽기</td>
+       <td>서버에 대한 정보 / 로그 정보 / 자원 정보</td>
+       <td>
+         <ul>
+           <li>getInitParameter():web.xml에 등록된 데이터 읽기(보안)</li>
+           <li>***getRealPath(): 실제 톰캣에서 읽은 파일 : 소프트웨어 이행
+               <br>
+               File.separator => 윈도우 \ , 리눅스 /
+           </li>
+         </ul>
+       </td>
+       <td>AWS 호스팅 / 파일 업로드</td>
+     </tr>
+     <tr>
+       <td>out</td>
+       <td>JspWriter</td>
+       <td>출력버퍼 관리(HTML을 출력해두는 메모리 공간:사용자당 1개 생성:autoFlush)</td>
+       <td>
+         <ul>
+           <li>getBufferSize(): 총버퍼 크기</li>
+           <li>getRemaining() : 남아 있는 버퍼 크기</li>
+           <li>print()/write()/***println():&lt;%= %&gt;</li>
+         </ul>
+       </td>
+       <td>
+         브라우저에 출력시에 주로 사용 => 최근 EL로 변경
+       </td>
+     </tr>
+     <tr>
+       <td>pageContext</td>
+       <td>PageContext</td>
+       <td>페이지 흐름:이동,포함</td>
+       <td>
+         <ul>
+           <li>include(): 조립식</li>
+           <li>forward():이동 => request유지 (MVC)</li>
+         </ul>
+       </td>
+       <td>
+         ***&lt;jsp:include &gt;<br>
+         ***&lt;jsp:forward &gt;
+       </td>
+     </tr>
+     <tr>
+       <td colspan="5">
+         <ul>
+           <li>***session:13장</li>
+           <li>exception: try~catch</li>
+           <li>config : web.xml</li>
+           <li>page : this</li>
+         </ul>
+       </td>
+     </tr>
     </table>
    </div>
   </div>
