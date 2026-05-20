@@ -138,4 +138,62 @@ public class FoodDAO {
 		   return total;
 	   }
 	   // 검색 
+	   public List<FoodVO> foodFindData(int page,String address)
+	   {
+		   List<FoodVO> list=new ArrayList<FoodVO>();
+		   try
+		   {
+			   getConnection();
+			   String sql="SELECT no,name,poster "
+					     +"FROM food "
+					     +"WHERE address LIKE '%'||?||'%' "
+					     +"ORDER BY no ASC "
+					     +"OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, address);
+			   ps.setInt(2, (page*12)-12); // OFFSET은 0번부터 시작 
+			   ResultSet rs=ps.executeQuery();
+			   while(rs.next())
+			   {
+				   FoodVO vo=new FoodVO();
+				   vo.setNo(rs.getInt(1));
+				   vo.setName(rs.getString(2));
+				   vo.setPoster(rs.getString(3));
+				   list.add(vo);
+			   }
+			   rs.close();
+		   }catch(Exception ex)
+		   {
+			   ex.printStackTrace();
+		   }
+		   finally
+		   {
+			   disConnection();
+		   }
+		   return list;
+	   }
+	   public int foodFindTotalPage(String address)
+	   {
+		   int total=0;
+		   try
+		   {
+			   getConnection();
+			   String sql="SELECT CEIL(COUNT(*)/12.0) FROM food "
+					     +"WHERE address LIKE '%'||?||'%'";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, address);
+			   ResultSet rs=ps.executeQuery();
+			   rs.next();
+			   total=rs.getInt(1);
+			   rs.close();
+		   }catch(Exception ex)
+		   {
+			   ex.printStackTrace();
+		   }
+		   finally
+		   {
+			   disConnection();
+		   }
+		   return total;
+	   }
 }
