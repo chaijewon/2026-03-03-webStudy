@@ -59,7 +59,7 @@ p {
     %>
      <div class="col-md-3">
 	    <div class="thumbnail">
-	      <a href="detail.jsp?no=<%=vo.getNo()%>">
+	      <a href="detail_before.jsp?no=<%=vo.getNo()%>">
 	        <img src="<%= vo.getPoster()%>" style="width:240px;height: 150px">
 	        <div class="caption">
 	          <p><%=vo.getName() %></p>
